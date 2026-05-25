@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:19:04 by rmedeiro          #+#    #+#             */
-/*   Updated: 2026/05/16 20:49:28 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/05/23 11:13:39 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,13 @@ static void	validate_required_textures(t_game *g)
 		exit_game(EXIT_MAP, g, "parse_texture_path: Missing floor parameter");
 	if (g->map.ceiling_color == -1 && !g->map.ceiling_path)
 		exit_game(EXIT_MAP, g, "parse_texture_path: Missing ceiling parameter");
-	if (g->mode == MODE_PACMAN && (!g->tex.pacdot || !g->tex.energizer
-			|| !g->tex.blinky[0] || !g->tex.blinky[1] || !g->tex.pinky[0]
-			|| !g->tex.pinky[1] || !g->tex.inky[0] || !g->tex.inky[1]
-			|| !g->tex.clyde[0] || !g->tex.clyde[1]))
+	if ((g->mode == MODE_PACMAN || g->mode == MODE_FREE_ROAM)
+		&& (!g->tex.pacdot || !g->tex.energizer
+			|| !g->tex.blinky[0] || !g->tex.blinky[1]
+			|| !g->tex.pinky[0] || !g->tex.pinky[1]
+			|| !g->tex.inky[0] || !g->tex.inky[1]
+			|| !g->tex.clyde[0] || !g->tex.clyde[1]
+			|| !g->tex.other_state[0] || !g->tex.other_state[1]))
 		exit_game(EXIT_MAP, g, "parse_texture_path: Missing pacman texture");
 }
 

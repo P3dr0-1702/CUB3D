@@ -5,6 +5,7 @@
    ...
    obj:/usr/lib*/libX11.so*
 }
+
 {
    mlx_xext_leaks
    Memcheck:Leak
@@ -12,6 +13,7 @@
    ...
    obj:/usr/lib*/libXext.so*
 }
+
 {
    mlx_mlx_leaks
    Memcheck:Leak
@@ -19,6 +21,7 @@
    ...
    obj:*/libmlx*
 }
+
 {
    mlx_xcb_leaks
    Memcheck:Leak
@@ -26,8 +29,9 @@
    ...
    obj:/usr/lib*/libxcb.so*
 }
+
 {
-   x11_xcb_writev_uninitialised
+   x11_xcb_writev_uninitialised_loop
    Memcheck:Param
    writev(vector[0])
    ...
@@ -35,12 +39,11 @@
    ...
    fun:xcb_writev
    ...
-   fun:mlx_new_window
-}
-{
-   glibc_loader_reachable
-   Memcheck:Leak
-   match-leak-kinds: reachable
+   fun:_XSend
    ...
-   obj:*/ld-linux-*
+   fun:_XEventsQueued
+   ...
+   fun:XPending
+   ...
+   fun:mlx_loop
 }

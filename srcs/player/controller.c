@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_controller.c                                :+:      :+:    :+:   */
+/*   controller.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 18:37:15 by rmedeiro          #+#    #+#             */
-/*   Updated: 2026/05/08 18:37:20 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/05/23 11:16:15 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	player_controller(t_game *g)
 {
 	if (!g)
 		return ;
-	if (g->mode == MODE_CUBE)
+	if (g->mode == MODE_CUBE || g->mode == MODE_FREE_ROAM)
 		player_cube_controller(g);
 	else if (g->mode == MODE_PACMAN)
 		player_pacman_controller(g);

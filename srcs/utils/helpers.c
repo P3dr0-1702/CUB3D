@@ -3,59 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 11:01:19 by pfreire-          #+#    #+#             */
-/*   Updated: 2026/05/15 11:43:34 by pfreire-         ###   ########.fr       */
+/*   Updated: 2026/05/21 15:19:02 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "helpers.h"
-
-char	*parse_chars(char *str)
-{
-	char	*dup;
-	int		i;
-	int		j;
-
-	if (!str)
-		return (NULL);
-	dup = ft_calloc(ft_strlen(str) + 1, sizeof(char));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] != '\n')
-		{
-			if (str[i] == 'M')
-				dup[j] = '1';
-			else
-				dup[j] = str[i];
-			j++;
-		}
-		i++;
-	}
-	dup[j] = '\0';
-	return (dup);
-}
-
-char	**remove_char(char **array)
-{
-	int		i;
-	char	**final;
-
-	i = 0;
-	final = ft_calloc(ytile(array) + 1, sizeof(char *));
-	while (array[i] != NULL)
-	{
-		final[i] = parse_chars(array[i]);
-		i++;
-	}
-	final[i] = NULL;
-	return (final);
-}
 
 int	distance_to_target(t_ghost *ghost, int dy, int dx)
 {

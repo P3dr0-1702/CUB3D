@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:37:40 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/19 11:49:55 by pfreire-         ###   ########.fr       */
+/*   Updated: 2026/05/21 15:01:03 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,3 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	ft_bzero(buffer, nmemb * size);
 	return (buffer);
 }
-
-// int main()
-// {
-// 	int *buffer;
-// 	int	*real;
-// 	buffer = (int *)ft_calloc(0, 0);
-// 	real = (int *)calloc(0, 0);
-// 	printf("%d\n ", buffer[0]);
-// }

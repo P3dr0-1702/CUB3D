@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ghost.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 22:37:05 by rmedeiro          #+#    #+#             */
-/*   Updated: 2026/05/14 17:26:17 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/05/21 15:11:02 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Pac_Struct.h"
 #include "map3D.h"
 
-static void	free_copy_partial(char **map_copy, int rows_done)
+void	free_copy_partial(char **map_copy, int rows_done)
 {
 	int	row;
 

@@ -13,16 +13,18 @@
 
 NAME    = cub3D
 
-CC      = clang-12
+CC      = cc
 CFLAGS  = -O3 -Wall -Wextra -Werror
 DFLAGS  = -Wshadow -Wdouble-promotion  -Wformat=2 -Wstrict-aliasing=2 -fno-omit-frame-pointer -g
 
 ASAN_FLAGS = -fsanitize=address
 UBSAN_FLAGS = -fsanitize=undefined
 
-INCS    = -Iinclude -Ilibft
+INCS    = -Iinclude -Ilibft -I$(MLX_PATH)
 
 LIBFT   = libft/libft.a
+
+MLX_REPO = https://github.com/42Paris/minilibx-linux.git
 MLX_PATH = minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 
@@ -42,6 +44,7 @@ srcs/init/init_map.c \
 srcs/init/init_mlx.c \
 srcs/init/init_player.c \
 srcs/init/init_spritesheet.c \
+srcs/init/init_mode.c \
 srcs/map/utils.c \
 srcs/map/grid.c \
 srcs/map/flood_fill.c \
@@ -109,10 +112,15 @@ srcs/draw/wall_column.c
 OBJ_DIR   = objs
 OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
+RED = \033[1;30;41m
+GREEN = \033[1;30;42m
+OFF := \033[0m
+
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBFT) $(MLX) -lXext -lX11 -lm -g -o $(NAME)
+		 $(CC) $(CFLAGS) $(OBJ_FILES) $(LIBFT) $(MLX) -lXext -lX11 -lm -g -o $(NAME)
+		 @echo "$(GREEN) Cub3D Created $(OFF)"
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
@@ -122,19 +130,29 @@ $(LIBFT):
 	$(MAKE) -C libft
 
 $(MLX):
+	@test -d $(MLX_PATH) || git clone $(MLX_REPO) $(MLX_PATH)
 	$(MAKE) -C $(MLX_PATH)
 
+mlx: $(MLX)
+	 @echo "$(GREEN) Minilibx Compiled $(OFF)"
+
 val: all
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=mlx.supp -s \
-		./$(NAME) maps/Tests/Wrap_portal.cub
+	 valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=mlx.supp -s \
+	 ./$(NAME) maps/Cube.cub
 
 clean:
 	rm -rf $(OBJ_DIR)
 	$(MAKE) -C libft clean
+	@echo "$(RED) Delete Obj Files $(OFF)"
 
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C libft fclean
+	@echo "$(RED) Delete Cub3D exe $(OFF)"
+
+del:
+	rm -rf $(MLX_PATH)
+	@echo "$(RED) Deleted Minilibx $(OFF)"
 
 re: fclean all
 
@@ -148,4 +166,4 @@ u:
 d: 
 	$(MAKE) CFLAGS="$(CFLAGS) $(DFLAGS)" e
 	
-.PHONY: all clean fclean re val
+.PHONY: all clean fclean re mlx val del a u d

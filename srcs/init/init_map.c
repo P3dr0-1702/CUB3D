@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 22:12:34 by rmedeiro          #+#    #+#             */
-/*   Updated: 2026/05/14 22:33:22 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/05/21 16:18:15 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ static int	init_game_grid(t_game *game, char **temp)
 
 	game->map.grid = ft_calloc(sizeof(char *), game->map.height + 1);
 	if (!game->map.grid)
-		return (-1);
+		return (free_2d((void **)temp), -1);
 	i = 0;
 	while (temp && temp[i])
 	{
 		game->map.grid[i] = ft_calloc(sizeof(char), game->map.width + 1);
 		if (!game->map.grid[i])
-			return (-1);
+			return (free_2d((void **)temp), -1);
 		ft_memcpy(game->map.grid[i], temp[i], ft_strlen(temp[i]));
 		i++;
 	}
-	return (0);
+	return (free_2d((void **)temp), 0);
 }
 
 static void	san(char **temp)
@@ -41,6 +41,8 @@ static void	san(char **temp)
 
 	i = 0;
 	j = 0;
+	if (!temp)
+		return ;
 	while (temp[j])
 	{
 		i = 0;
@@ -97,7 +99,7 @@ void	map_validate_tiles(t_game *g)
 	}
 }
 
-void	init_map(t_game *g, const char *path)
+int	init_map(t_game *g, const char *path)
 {
 	char	**temp;
 
@@ -112,14 +114,16 @@ void	init_map(t_game *g, const char *path)
 		exit_game(EXIT_MAP, g, "parse() has not found a grid");
 	g->map.height = ytile(temp);
 	g->map.width = xtile(temp);
-	if (g->map.height > 255 || g->map.width > 255)
-		exit_game(EXIT_MAP, g, "Map is too big");
+	if (g->map.height > 200 || g->map.width > 255 || g->map.width
+		* g->map.height > 16256)
+		return (free_2d((void **)temp), exit_game(EXIT_MAP, g,
+				"Map is too big"), -1);
 	if (init_game_grid(g, temp))
 		exit_game(EXIT_MALLOC, g, "Something broke");
-	free_2d((void **)temp);
 	if (g->debug_mode)
-		return ;
+		return (0);
 	map_validate_tiles(g);
 	map_validate_wrap_portals(g);
 	map_validate_bounds(g);
+	return (0);
 }

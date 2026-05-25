@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 11:40:08 by rmedeiro          #+#    #+#             */
-/*   Updated: 2026/05/16 20:24:37 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/05/21 15:16:07 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ static int	find_map_end(t_game *g, char **file, int start)
 
 static char	**extract_map(char **file_lines, int start, int end, t_game *g)
 {
-	int		i;
-	int		j;
+	t_point	counter;
 	int		line_count;
 	char	**map;
 
@@ -57,21 +56,22 @@ static char	**extract_map(char **file_lines, int start, int end, t_game *g)
 	line_count = end - start + 1;
 	map = ft_calloc((size_t)line_count + 1, sizeof(char *));
 	if (!map)
-		exit_game(EXIT_MALLOC, g, "extract_map(): unable allocate memory E1");
-	i = start - 1;
-	j = -1;
-	while (++i <= end)
+		return (free_2d((void **)file_lines), exit_game(EXIT_MALLOC, g,
+				"extract_map(): unable allocate memory E1"), NULL);
+	counter.x = start - 1;
+	counter.y = -1;
+	while (++counter.x <= end)
 	{
-		map[++j] = ft_strdup(file_lines[i]);
-		if (!map[j])
+		map[++counter.y] = ft_strdup(file_lines[counter.x]);
+		if (!map[counter.y])
 		{
-			map[j] = NULL;
-			free_2d((void *)map);
-			exit_game(EXIT_MALLOC, g, "Error Malloc");
+			free_copy_partial(map, counter.y);
+			return (free_2d((void **)file_lines), exit_game(EXIT_MALLOC, g,
+					"Error Malloc"), NULL);
 		}
 	}
-	map[j + 1] = NULL;
-	return (map);
+	map[counter.y + 1] = NULL;
+	return (free_2d((void **)file_lines), map);
 }
 
 char	**load_map_from_cub(t_game *g, const char *path)
@@ -96,7 +96,6 @@ char	**load_map_from_cub(t_game *g, const char *path)
 	if (g->debug_mode)
 		ft_printf("Maps ends at line number %d\n", end);
 	map = extract_map(file_lines, start, end, g);
-	free_2d((void *)file_lines);
 	if (!map)
 		exit_game(EXIT_MAP, g, "load_map_from_cub(): unable allocate memory");
 	return (map);

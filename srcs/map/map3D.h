@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 21:48:48 by rmedeiro          #+#    #+#             */
-/*   Updated: 2026/05/16 20:39:12 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/05/21 16:21:28 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int						map_is_cub_prefix(char *p);
 int						map_pacman_mode_prefix(char *p);
 int						map_pacman_mode_prefix_helper(char *p);
 int						map_cube_mode_prefix(char *p);
+void					free_copy_partial(char **map_copy, int rows_done);
 
 #endif

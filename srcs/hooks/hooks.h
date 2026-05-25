@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 23:18:06 by rmedeiro          #+#    #+#             */
-/*   Updated: 2026/05/16 20:39:24 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/05/23 11:47:20 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_key
 	int					mouse_lock;
 	int					mouse_hidden;
 	int					mouse_captured;
+	int					show_raycast;
 	int					k;
 	int					controller_start;
 }						t_key;

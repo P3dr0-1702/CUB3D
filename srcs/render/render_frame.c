@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 19:44:16 by rmedeiro          #+#    #+#             */
-/*   Updated: 2026/05/08 18:28:57 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/05/23 11:49:32 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ void	render_frame(t_game *game)
 	handle_gate_toggle(game);
 	clear_sprite_z(game);
 	render_all_sprites(game);
-	render_into_framebuffer(game);
+	if (game->mode == MODE_PACMAN || game->mode == MODE_FREE_ROAM)
+		render_into_framebuffer(game);
+	if (game->key.show_raycast)
+		render_raycast_debug(game);
 	mlx_put_image_to_window(game->mlx_ptr, game->win.win_ptr,
 		game->win.frame_buffer.img_ptr, 0, 0);
 }

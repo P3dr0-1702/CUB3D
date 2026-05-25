@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 16:16:02 by pfreire-          #+#    #+#             */
-/*   Updated: 2026/05/16 20:55:42 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/05/23 11:58:24 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define PAC_STRUCT_H
 
 # include "./libft/libft.h"
-# include "minilibx-linux/mlx.h"
-# include "minilibx-linux/mlx_int.h"
+# include "mlx.h"
 # include "stdio.h"
 # include "stdlib.h"
 # include "string.h"
@@ -296,7 +295,8 @@ typedef enum e_gstate
 typedef enum e_mode
 {
 	MODE_CUBE = 0,
-	MODE_PACMAN = 1
+	MODE_PACMAN = 1,
+	MODE_FREE_ROAM = 2
 }					t_mode;
 
 typedef struct s_textures
@@ -373,7 +373,7 @@ typedef struct s_game
 	int				pacdot_count;
 	int				energizer_count;
 	int				gate_passable;
-
+	char			*map_path;
 	bool			debug_mode;
 	double			timeout;
 	t_timer			timer;

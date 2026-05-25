@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfreire- <pfreire-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 11:02:12 by pfreire-          #+#    #+#             */
-/*   Updated: 2026/05/15 11:39:07 by pfreire-         ###   ########.fr       */
+/*   Updated: 2026/05/22 14:10:24 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_pixel_put(t_image *s, int x, int y, unsigned int color);
 void	free_game(t_game *g);
 int		pixeL_get_coord(t_sprite_sheet *sheet, int i, int x, int y);
 int		pixel_get(t_image *data, int x, int y);
-char	**remove_char(char **array);
 int		distance_to_target(t_ghost *ghost, int dy, int dx);
 int		distance_squared(t_double_point a, t_double_point b);
 bool	print_usage(void);

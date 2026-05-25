@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 15:53:44 by rmedeiro          #+#    #+#             */
-/*   Updated: 2026/03/02 09:52:21 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/05/21 15:51:22 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_window(t_game *g)
 	g->win.width = 1920;
 	g->win.height = 1080;
 	g->win.win_ptr = mlx_new_window(g->mlx_ptr, g->win.width, g->win.height,
-			"Pac-Man");
+			"Waka Waka 3D");
 	if (!g->win.win_ptr)
 		exit_game(EXIT_MLX, g, "init_window() was unable to create win_ptr");
 }
