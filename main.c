@@ -21,7 +21,8 @@ void	reset_game(t_game *game, int is_death)
 {
 	int	i;
 
-	sleep(2);
+	if(game->state != MENU)
+		sleep(2);
 	if (game->mode == MODE_CUBE)
 		return ;
 	if (is_death)
@@ -36,7 +37,8 @@ void	reset_game(t_game *game, int is_death)
 	i = -1;
 	while (++i < game->energizer_count)
 		game->energizers[i].active = true;
-	game->level++;
+	if(game->state != MENU)
+		game->level++;
 	if (game->level > 255)
 		segfault_func(game);
 	game->player.collected_dots = 0;

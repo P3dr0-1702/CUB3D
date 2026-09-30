@@ -35,19 +35,21 @@ void	play_death(t_game *game, t_point coord)
 			&game->player.frames.death[i]);
 		mlx_put_image_to_window(game->mlx_ptr, game->win.win_ptr,
 			game->win.frame_buffer.img_ptr, 0, 0);
-		usleep(pow(10, 5));
+		usleep(1000);
 		i++;
 	}
-	ft_printf("YOU ARE DEAD\n");
 }
 
 static void	handle_player_death(t_game *g)
 {
 	g->player.lives--;
-	if (g->player.lives <= 0)
-		exit_game(EXIT_FAILURE, g, "You are dead");
 	play_death(g, (t_point){g->player.pos.pixel_pos.x,
 		g->player.pos.pixel_pos.y});
+	if (g->player.lives <= 0)
+	{
+			g->state = MENU;
+			reset_game(g, 0);
+	}
 	reset_game(g, 1);
 }
 

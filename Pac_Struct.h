@@ -66,6 +66,7 @@
 # define EXIT_MLX 3
 # define EXIT_MAP 4
 # define EXIT_INPUT 5
+# define EXIT_DEATH 6
 
 # define MAP_PACMAN "./maps/Pacman.cub"
 # define MAP_CUBE "./maps/cube.cub"
@@ -402,5 +403,6 @@ void				ft_pixel_put(t_image *s, int x, int y, unsigned int color);
 void				print_2d(char **arr);
 void				reset_game(t_game *game, int is_death);
 void				change_pallete(t_point pallet_coord, t_anim *frames);
+void	render_frame(t_game *game);
 
 #endif

@@ -107,7 +107,8 @@ srcs/draw/plane.c \
 srcs/draw/utils.c \
 srcs/draw/build_sprite_box.c \
 srcs/draw/sprite_column.c \
-srcs/draw/wall_column.c
+srcs/draw/wall_column.c \
+srcs/scale/scale.c
 
 OBJ_DIR   = objs
 OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

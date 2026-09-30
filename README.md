@@ -10,6 +10,13 @@ A faithful-ish recreation of the classic 80s arcade game
 
 Pac-Man is an arcade, top-down maze runner where your hero, Pac-Man, must eat all pacdots in an inescapable maze while running away from mean ghosts.
 
+# Features
+This game implements several behaviours from the original Pac-Man game
+
+## Pac-Man
+Cornering: by snapping the player to the grid with a function and allowing it the player to turn before the center of the square, we can replicate c
+
+
 # Instructions
 
 Compile the game using `make` and run it as follows:

@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 23:43:38 by rmedeiro          #+#    #+#             */
-/*   Updated: 2026/05/13 10:54:44 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2026/09/30 15:32:50 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define RENDER3D_H
 
 # include "../../Pac_Struct.h"
+# include "../scale/scale.h"
 
 # define TILE_SIZE_3D 1
 # define SPR_PACDOT 1
@@ -28,8 +29,9 @@
 # define FLOOR_START_OFFSET 2
 # define FLOOR_MIN_DIST 4.0
 
-# define X_POS 860
-# define Y_POS 640 
+# define X_POS 728
+# define Y_POS 320
+
 
 typedef struct s_game	t_game;
 typedef struct s_image	t_image;
