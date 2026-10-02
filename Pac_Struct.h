@@ -376,6 +376,7 @@ typedef struct s_game
 	int				gate_passable;
 	char			*map_path;
 	bool			debug_mode;
+	bool			is_pacman_map;
 	double			timeout;
 	t_timer			timer;
 	int				global_dot_counter;
@@ -404,5 +405,6 @@ void				print_2d(char **arr);
 void				reset_game(t_game *game, int is_death);
 void				change_pallete(t_point pallet_coord, t_anim *frames);
 void	render_frame(t_game *game);
+uint32_t	hash_file(const char *path);
 
 #endif

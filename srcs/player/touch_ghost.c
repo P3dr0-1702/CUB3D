@@ -49,6 +49,7 @@ static void	handle_player_death(t_game *g)
 	{
 			g->state = MENU;
 			reset_game(g, 0);
+			return;
 	}
 	reset_game(g, 1);
 }

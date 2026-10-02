@@ -17,6 +17,34 @@
 #include "srcs/textures/textures3D.h"
 #include "srcs/utils/helpers.h"
 
+uint32_t	hash_file(const char *path)
+{
+	int				fd;
+	ssize_t			read_bytes;
+	unsigned char	buf[256];
+	uint32_t		hash;
+	ssize_t			i;
+
+	hash = 2166136261u;
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	read_bytes = read(fd, buf, sizeof(buf));
+	while (read_bytes > 0)
+	{
+		i = 0;
+		while (i < read_bytes)
+		{
+			hash ^= buf[i];
+			hash *= 166777619u;
+			i++;
+		}
+		read_bytes = read(fd, buf, sizeof(buf));
+	}
+	close(fd);
+	return (hash);
+}
+
 void	reset_game(t_game *game, int is_death)
 {
 	int	i;
@@ -80,6 +108,10 @@ int	main(int ac, char **av)
 		exit_game(EXIT_MALLOC, NULL, "main() failed to allocate game");
 	if (wrong_args(game, ac, av) && print_usage())
 		exit_game(EXIT_FAILURE, game, "Wrong Args");
+	if(hash_file(av[1]) == 2274426481)
+		game->is_pacman_map = true;
+	if(game->is_pacman_map)
+		printf("PACCCCCCCCCCCCMANNNN\n");
 	init(game, av[1]);
 	mlx_hook(game->win.win_ptr, 2, 1L << 0, handle_key_press, game);
 	mlx_hook(game->win.win_ptr, 3, 1L << 1, handle_key_release, game);
