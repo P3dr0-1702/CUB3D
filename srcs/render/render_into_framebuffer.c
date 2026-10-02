@@ -12,7 +12,6 @@
 
 #include "render3D.h"
 
-#define SCALE_FACTOR 2
 
 void	render_base_into_framebuffer(t_game *s)
 {

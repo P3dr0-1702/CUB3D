@@ -157,8 +157,6 @@ del:
 
 re: fclean all
 
-e: all clean
-	clear
 a:
 	$(MAKE) CFLAGS="$(CFLAGS) $(ASAN_FLAGS)" e
 

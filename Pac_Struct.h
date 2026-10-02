@@ -36,6 +36,7 @@
 
 # define TEXTURES "./assets/textures/"
 
+#define SCALE_FACTOR 2
 # define MAP_PALLETE_X 3
 # define MAP_PALLETE_Y 1
 
@@ -70,6 +71,7 @@
 
 # define MAP_PACMAN "./maps/Pacman.cub"
 # define MAP_CUBE "./maps/cube.cub"
+# define PACADE "./assets/sprites/Pacade2.xpm"
 
 typedef struct s_point
 {
