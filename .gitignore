@@ -1,0 +1,4 @@
+.cache/
+.vscode/
+minilibx-linux/
+compile_commands.json

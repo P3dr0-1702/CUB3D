@@ -71,7 +71,7 @@
 
 # define MAP_PACMAN "./maps/Pacman.cub"
 # define MAP_CUBE "./maps/cube.cub"
-# define PACADE "./assets/sprites/Pacade2.xpm"
+# define PACADE "./assets/sprites/Frame.xpm"
 
 typedef struct s_point
 {

@@ -12,7 +12,6 @@
 
 #include "render3D.h"
 
-
 void	render_base_into_framebuffer(t_game *s)
 {
 	int				x;
@@ -29,8 +28,19 @@ void	render_base_into_framebuffer(t_game *s)
 		{
 			color = pixel_get(&s->base, x / SCALE_FACTOR, y / SCALE_FACTOR);
 			if ((color >> 24) != 0xFF)
-				ft_pixel_put(&s->win.frame_buffer, ((x + X_POS)) % s->win.width,
-					((y + Y_POS)) % s->win.height, color);
+			{
+				if (!s->is_pacman_map)
+				{
+					ft_pixel_put(&s->win.frame_buffer, ((x + X_POS))
+						% s->win.width, ((y + Y_POS)) % s->win.height, color);
+				}
+				else
+				{
+					ft_pixel_put(&s->win.frame_buffer, ((x + X_POS - 64)
+							% s->win.width), ((y + Y_POS - 64) % s->win.height),
+						color);
+				}
+			}
 			x++;
 		}
 		y++;
@@ -49,11 +59,14 @@ void	render_sprite_into_framebuffer(t_game *game, t_point coord,
 		point.x = 0;
 		while (point.x < sprite->width * SCALE_FACTOR)
 		{
-			color = pixel_get(&game->sprite_sheet.sprite_img, ((point.x / SCALE_FACTOR)
-						+ sprite->coord.x), ((point.y / SCALE_FACTOR) + sprite->coord.y));
+			color = pixel_get(&game->sprite_sheet.sprite_img, ((point.x
+							/ SCALE_FACTOR) + sprite->coord.x), ((point.y
+							/ SCALE_FACTOR) + sprite->coord.y));
 			if ((color >> 24) != 0xFF)
-				ft_pixel_put(&game->win.frame_buffer, ((point.x) + (coord.x - (X_POS / 2)) * SCALE_FACTOR)
-					% game->win.frame_buffer.width, ((point.y) + (coord.y - (Y_POS / 2)) * SCALE_FACTOR)
+				ft_pixel_put(&game->win.frame_buffer, ((point.x) + (coord.x
+							- (X_POS / 2)) * SCALE_FACTOR)
+					% game->win.frame_buffer.width, ((point.y) + (coord.y
+							- (Y_POS / 2)) * SCALE_FACTOR)
 					% game->win.frame_buffer.height, color);
 			point.x++;
 		}

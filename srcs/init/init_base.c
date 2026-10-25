@@ -24,6 +24,7 @@ void	init_base(t_game *s)
 	t_image pacade;
 
 	offset.x = 0;
+	offset.y = 0;
 	color = 0;
 	point.x = -1;
 	point.y = -1;
@@ -35,20 +36,24 @@ void	init_base(t_game *s)
 	if(s->is_pacman_map)
 	{
 		printf("Map height: %d, Map Width: %d \n", s->map.height, s->map.width);
-		s->base.width = (s->map.width * TILE_SIZE) + (98 * SCALE_FACTOR);
-		s->base.height = (s->map.height * TILE_SIZE) + (129 * SCALE_FACTOR);
+		s->base.width = (s->map.width * TILE_SIZE) + (4 * TILE_SIZE * SCALE_FACTOR);
+		s->base.height = (s->map.height * TILE_SIZE) + (4 * TILE_SIZE * SCALE_FACTOR);
+		printf("Base height: %d, Base Width: %d \n", s->base.height, s->base.width);
 	}
 	else
 	{
+		printf("Map height: %d, Map Width: %d \n", s->map.height, s->map.width);
 		s->base.width = (s->map.width * TILE_SIZE);
 		s->base.height = (s->map.height) * TILE_SIZE;
+		printf("Base height: %d, Base Width: %d \n", s->base.height, s->base.width);
 	}
-	while(++point.y < pacade.height * SCALE_FACTOR)
+	while(s->is_pacman_map && ++point.y < pacade.height * SCALE_FACTOR)
 	{
+		// printf("point x before reset is %d\n", point.x);
 		point.x = -1;
 		while(++point.x < pacade.width * SCALE_FACTOR)
 		{
-			color = pixel_get(&pacade, point.x / SCALE_FACTOR, point.y /SCALE_FACTOR);
+			color = pixel_get(&pacade, point.x / SCALE_FACTOR, point.y / SCALE_FACTOR);
 			if((color << 24) != 0xFF)
 				ft_pixel_put(&s->base, point.x, point.y, color);
 		}
@@ -57,8 +62,8 @@ void	init_base(t_game *s)
 	point.y = -1;
 	if(s->is_pacman_map)
 	{
-		offset.x = (49 / 8) * SCALE_FACTOR;
-		offset.y = (81 / 8) * SCALE_FACTOR;
+		offset.x = (16 / TILE_SIZE) * SCALE_FACTOR;
+		offset.y = (16 / TILE_SIZE) * SCALE_FACTOR;
 	}
 	while (++point.y < s->map.height)
 	{
@@ -70,6 +75,7 @@ void	init_base(t_game *s)
 				exit_game(EXIT_MALLOC, s,
 					"init_base(): Something when very wrong in tile selection");
 			put_tile_inbase(s, tile, color, (t_point){.y = point.y + offset.y, .x = point.x + offset.x});
+			// put_tile_inbase(s, tile, color, point);
 		}
 	}
 }
