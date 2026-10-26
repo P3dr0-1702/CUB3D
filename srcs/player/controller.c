@@ -32,14 +32,26 @@ static void	player_cube_controller(t_game *g)
 
 static void	player_pacman_controller(t_game *g)
 {
-	if (g->key.w || g->key.up)
-		player_move(g, 0);
-	if (g->key.s || g->key.down)
-		player_move(g, 2);
-	if (g->key.d || g->key.right)
-		player_move(g, 3);
-	if (g->key.a || g->key.left)
-		player_move(g, 1);
+	if (g->key.scheme_change == 0)
+	{
+		if (g->key.w || g->key.up)
+			player_move(g, 0);
+		if (g->key.s || g->key.down)
+			player_move(g, 2);
+		if (g->key.d || g->key.right)
+			player_move(g, 3);
+		if (g->key.a || g->key.left)
+			player_move(g, 1);
+	}
+	else
+	{
+		if (g->key.s || g->key.down)
+			player_turn(g, 2);
+		if (g->key.d || g->key.right)
+			player_turn(g, -1);
+		if (g->key.a || g->key.left)
+			player_turn(g, 1);
+	}
 	update_player_direction(g, 1);
 	apply_player_movement(g, g->player.target_dir.x * PLAYER_SPEED,
 		g->player.target_dir.y * PLAYER_SPEED);

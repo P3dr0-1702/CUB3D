@@ -50,5 +50,6 @@ void					set_player_spawn(t_game *game, int col, int row,
 int						player_touched_ghost(t_game *g);
 void					handle_ghost_touch(t_game *g);
 void					play_death(t_game *game, t_point coord);
+void					player_turn(t_game *game, int turn_offset);
 
 #endif

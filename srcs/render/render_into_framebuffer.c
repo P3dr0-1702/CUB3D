@@ -16,36 +16,28 @@ void	render_base_into_framebuffer(t_game *s)
 {
 	int				x;
 	int				y;
+	int				offset;
 	unsigned int	color;
 
 	y = 0;
-	// t_image newFB = scale_up(*s, s->base);
-	// s->base = newFB;
-	while (y < s->base.height * SCALE_FACTOR)
+	offset = 0;
+	if(s->is_pacman_map)
+		offset = 32 * s->scheme.scale_factor;
+	while (y < s->base.height * s->scheme.scale_factor)
 	{
 		x = 0;
-		while (x < s->base.width * SCALE_FACTOR)
+		while (x < s->base.width * s->scheme.scale_factor)
 		{
-			color = pixel_get(&s->base, x / SCALE_FACTOR, y / SCALE_FACTOR);
+			color = pixel_get(&s->base, x / s->scheme.scale_factor, y / s->scheme.scale_factor);
 			if ((color >> 24) != 0xFF)
-			{
-				if (!s->is_pacman_map)
-				{
-					ft_pixel_put(&s->win.frame_buffer, ((x + X_POS))
-						% s->win.width, ((y + Y_POS)) % s->win.height, color);
-				}
-				else
-				{
-					ft_pixel_put(&s->win.frame_buffer, ((x + X_POS - 64)
-							% s->win.width), ((y + Y_POS - 64) % s->win.height),
-						color);
-				}
-			}
+				ft_pixel_put(&s->win.frame_buffer, ((x + (s->scheme.x_pos / 2) * s->scheme.scale_factor) - offset), ((y + (s->scheme.y_pos / 2) * s->scheme.scale_factor) - offset), color);
 			x++;
 		}
 		y++;
 	}
 }
+
+
 
 void	render_sprite_into_framebuffer(t_game *game, t_point coord,
 		t_sprite_ref *sprite)
@@ -54,19 +46,19 @@ void	render_sprite_into_framebuffer(t_game *game, t_point coord,
 	unsigned int	color;
 
 	point.y = 0;
-	while (point.y < sprite->height * SCALE_FACTOR)
+	while (point.y < sprite->height * game->scheme.scale_factor)
 	{
 		point.x = 0;
-		while (point.x < sprite->width * SCALE_FACTOR)
+		while (point.x < sprite->width * game->scheme.scale_factor)
 		{
 			color = pixel_get(&game->sprite_sheet.sprite_img, ((point.x
-							/ SCALE_FACTOR) + sprite->coord.x), ((point.y
-							/ SCALE_FACTOR) + sprite->coord.y));
+							/ game->scheme.scale_factor) + sprite->coord.x), ((point.y
+							/ game->scheme.scale_factor) + sprite->coord.y));
 			if ((color >> 24) != 0xFF)
 				ft_pixel_put(&game->win.frame_buffer, ((point.x) + (coord.x
-							- (X_POS / 2)) * SCALE_FACTOR)
+							- (game->scheme.x_pos / 2)) * game->scheme.scale_factor)
 					% game->win.frame_buffer.width, ((point.y) + (coord.y
-							- (Y_POS / 2)) * SCALE_FACTOR)
+							- (game->scheme.y_pos / 2)) * game->scheme.scale_factor)
 					% game->win.frame_buffer.height, color);
 			point.x++;
 		}
@@ -98,8 +90,8 @@ void	render_player_into_framebuffer(t_game *game)
 {
 	t_point	coord;
 
-	coord.x = (((game->player.pos.tile_pos.x - 0.5) * TILE_SIZE) + X_POS) - 4;
-	coord.y = (((game->player.pos.tile_pos.y - 0.5) * TILE_SIZE) + Y_POS) - 4;
+	coord.x = (((game->player.pos.tile_pos.x - 0.5) * TILE_SIZE) + game->scheme.x_pos) - 4;
+	coord.y = (((game->player.pos.tile_pos.y - 0.5) * TILE_SIZE) + game->scheme.y_pos) - 4;
 	game->player.pos.pixel_pos.x = coord.x;
 	game->player.pos.pixel_pos.y = coord.y;
 	render_player(game, coord);

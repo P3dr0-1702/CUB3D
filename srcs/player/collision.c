@@ -45,17 +45,17 @@ void	player_collision(t_game *g)
 
 	player = &g->player;
 	row = (int)player->pos.tile_pos.y;
-	col = (int)(player->pos.tile_pos.x - PLAYER_RADIUS);
+	col = (int)(player->pos.tile_pos.x - g->player.player_radius);
 	if (player_hits_wall(g, row, col))
-		player->pos.tile_pos.x = col + 1 + PLAYER_RADIUS;
-	col = (int)(player->pos.tile_pos.x + PLAYER_RADIUS);
+		player->pos.tile_pos.x = col + 1 + g->player.player_radius;
+	col = (int)(player->pos.tile_pos.x + g->player.player_radius);
 	if (player_hits_wall(g, row, col))
-		player->pos.tile_pos.x = col - PLAYER_RADIUS;
+		player->pos.tile_pos.x = col - g->player.player_radius;
 	col = (int)player->pos.tile_pos.x;
-	row = (int)(player->pos.tile_pos.y - PLAYER_RADIUS);
+	row = (int)(player->pos.tile_pos.y - g->player.player_radius);
 	if (player_hits_wall(g, row, col))
-		player->pos.tile_pos.y = row + 1 + PLAYER_RADIUS;
-	row = (int)(player->pos.tile_pos.y + PLAYER_RADIUS);
+		player->pos.tile_pos.y = row + 1 + g->player.player_radius;
+	row = (int)(player->pos.tile_pos.y + g->player.player_radius);
 	if (player_hits_wall(g, row, col))
-		player->pos.tile_pos.y = row - PLAYER_RADIUS;
+		player->pos.tile_pos.y = row - g->player.player_radius;
 }

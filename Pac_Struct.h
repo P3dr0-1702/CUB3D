@@ -36,7 +36,6 @@
 
 # define TEXTURES "./assets/textures/"
 
-#define SCALE_FACTOR 2
 # define MAP_PALLETE_X 3
 # define MAP_PALLETE_Y 1
 
@@ -202,8 +201,11 @@ typedef struct s_player
 	int				speed_multiplier;
 	int				collected_dots;
 	int				frightened_speed;
+	int				facing;
+	unsigned int	cycles;
 	t_anim			frames;
 	t_control		controller;
+	double			player_radius;
 }					t_player;
 
 typedef enum e_ghost
@@ -355,6 +357,13 @@ typedef struct s_interest_points
 	t_point			player_spawn;
 }					t_target_points;
 
+typedef struct s_scheme
+{
+	int y_pos;
+	int x_pos;
+	int scale_factor;
+} t_scheme;
+
 typedef struct s_game
 {
 	void			*mlx_ptr;
@@ -386,8 +395,8 @@ typedef struct s_game
 	int				level;
 	int				controller_fd;
 	t_ghost_state	global_state;
-	// SpriteShit is 200x186
 	t_sprite_sheet	sprite_sheet;
+	t_scheme		scheme;
 }					t_game;
 
 int					gameloop(t_game *game);

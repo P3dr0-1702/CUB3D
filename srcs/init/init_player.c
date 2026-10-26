@@ -67,5 +67,6 @@ void	init_player(t_game *game, int is_death)
 		return ;
 	player_sprites(game);
 	change_pallete((t_point){.x = 2, .y = 1}, &game->player.frames);
-	game->player.lives = 3;
+	game->player.lives = 2;
+
 }

@@ -40,23 +40,65 @@ static void	set_player_target(t_game *g, double dx, double dy)
 {
 	g->player.target_dir.x = dx;
 	g->player.target_dir.y = dy;
-	g->player.target_plane.x = -dy * 0.66;
-	g->player.target_plane.y = dx * 0.66;
+	if(g->key.scheme_change == 0)
+	{
+		g->player.target_plane.x = -dy * 0.66;
+		g->player.target_plane.y = dx * 0.66;
+	}
+	else
+	{
+		g->player.target_plane.x = -dy * 0.33;
+		g->player.target_plane.y = dx * 0.33;
+	}
 }
+
+static const double	k_dir_vec[4][2] = {
+	{0, -1},
+	{-1, 0},
+	{0, 1},
+	{1, 0}
+};
 
 void	player_move(t_game *game, int dir)
 {
 	if (!can_move(game, dir))
 		return ;
-	if (dir == 0)
-		set_player_target(game, 0, -1);
-	else if (dir == 1)
-		set_player_target(game, -1, 0);
-	else if (dir == 2)
-		set_player_target(game, 0, 1);
-	else if (dir == 3)
-		set_player_target(game, 1, 0);
+	game->player.facing = dir;
+	set_player_target(game, k_dir_vec[dir][0], k_dir_vec[dir][1]);
 }
+
+void	player_turn(t_game *game, int turn_offset)
+{
+	int	new_dir;
+
+	new_dir = ((game->player.facing + turn_offset) % 4 + 4) % 4;
+	if(game->player.cycles < 0)
+		game->player.cycles = 0;
+	if(game->player.cycles)
+	{
+		game->player.cycles--;
+		return;
+	}
+	if(!can_move(game, new_dir))
+		return;
+	game->player.cycles = 10;
+	game->player.facing = new_dir;
+	set_player_target(game, k_dir_vec[new_dir][0], k_dir_vec[new_dir][1]);
+}
+
+// void	player_move(t_game *game, int dir)
+// {
+// 	if (!can_move(game, dir))
+// 		return ;
+// 	if (dir == 0)
+// 		set_player_target(game, 0, -1);
+// 	else if (dir == 1)
+// 		set_player_target(game, -1, 0);
+// 	else if (dir == 2)
+// 		set_player_target(game, 0, 1);
+// 	else if (dir == 3)
+// 		set_player_target(game, 1, 0);
+// }
 
 void	update_player_direction(t_game *game, double dt)
 {

@@ -31,6 +31,7 @@ void	play_death(t_game *game, t_point coord)
 	i = 0;
 	while (i < 12)
 	{
+		clear_sprite_z(game);
 		render_sprite_into_framebuffer(game, coord,
 			&game->player.frames.death[i]);
 		mlx_put_image_to_window(game->mlx_ptr, game->win.win_ptr,
@@ -42,7 +43,6 @@ void	play_death(t_game *game, t_point coord)
 
 static void	handle_player_death(t_game *g)
 {
-	g->player.lives--;
 	play_death(g, (t_point){g->player.pos.pixel_pos.x,
 		g->player.pos.pixel_pos.y});
 	if (g->player.lives <= 0)

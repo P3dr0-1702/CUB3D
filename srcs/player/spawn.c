@@ -13,7 +13,7 @@
 #include "../../Pac_Struct.h"
 #include "player3D.h"
 
-static void	set_player_orientation_ns(t_game *g, char c)
+static int	set_player_orientation(t_game *g, char c)
 {
 	if (c == 'N')
 	{
@@ -21,6 +21,7 @@ static void	set_player_orientation_ns(t_game *g, char c)
 		g->player.dir.y = -1;
 		g->player.plane.x = 0.66;
 		g->player.plane.y = 0;
+		return 0;
 	}
 	else if (c == 'S')
 	{
@@ -28,17 +29,15 @@ static void	set_player_orientation_ns(t_game *g, char c)
 		g->player.dir.y = 1;
 		g->player.plane.x = -0.66;
 		g->player.plane.y = 0;
+		return 2;
 	}
-}
-
-static void	set_player_orientation_ew(t_game *g, char c)
-{
-	if (c == 'E')
+	else if (c == 'E')
 	{
 		g->player.dir.x = 1;
 		g->player.dir.y = 0;
 		g->player.plane.x = 0;
 		g->player.plane.y = 0.66;
+		return 1;
 	}
 	else if (c == 'W')
 	{
@@ -46,8 +45,11 @@ static void	set_player_orientation_ew(t_game *g, char c)
 		g->player.dir.y = 0;
 		g->player.plane.x = 0;
 		g->player.plane.y = -0.66;
+		return 3;
 	}
+	return 0;
 }
+
 
 void	set_player_spawn(t_game *game, int col, int row, char dir)
 {
@@ -62,10 +64,10 @@ void	set_player_spawn(t_game *game, int col, int row, char dir)
 	game->player.pos.tile_pos.y = (double)row + 0.5;
 	game->player.pos.pixel_pos.x = col * TILE_SIZE;
 	game->player.pos.pixel_pos.y = row * TILE_SIZE;
-	set_player_orientation_ns(game, dir);
-	set_player_orientation_ew(game, dir);
+	game->player.facing = set_player_orientation(game, dir);
 	game->player.target_dir = game->player.dir;
 	game->player.target_plane = game->player.plane;
+	
 }
 
 static int	is_player_spawn(char tile)

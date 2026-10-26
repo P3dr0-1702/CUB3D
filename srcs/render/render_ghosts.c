@@ -86,8 +86,8 @@ void	render_ghosts_into_framebuffer(t_game *game)
 	{
 		if (ghost_ai(game, &game->ghosts[i]))
 			continue ;
-		coord.x = (game->ghosts[i].pos.pixel_pos.x - TILE_SIZE + X_POS);
-		coord.y = (game->ghosts[i].pos.pixel_pos.y - TILE_SIZE + Y_POS);
+		coord.x = (game->ghosts[i].pos.pixel_pos.x - TILE_SIZE + game->scheme.x_pos);
+		coord.y = (game->ghosts[i].pos.pixel_pos.y - TILE_SIZE + game->scheme.y_pos);
 		render_ghost_into_framebuffer(game, coord, &game->ghosts[i]);
 	}
 }

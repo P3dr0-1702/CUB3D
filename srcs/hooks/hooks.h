@@ -36,6 +36,7 @@ typedef struct s_key
 	int					show_raycast;
 	int					k;
 	int					controller_start;
+	int					scheme_change;
 }						t_key;
 
 int						handle_close(t_game *g);

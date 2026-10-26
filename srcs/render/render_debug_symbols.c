@@ -23,14 +23,14 @@ void	render_targets(t_game *game)
 	target_tile = game->sprite_sheet.sprites[253];
 	i = 0;
 	pivot_coord = pinky_target(game, 2);
-	pivot_coord.x = (pivot_coord.x * 8) + X_POS;
-	pivot_coord.y = (pivot_coord.y * 8) + Y_POS;
+	pivot_coord.x = (pivot_coord.x * 8) + game->scheme.x_pos;
+	pivot_coord.y = (pivot_coord.y * 8) + game->scheme.y_pos;
 	render_sprite_into_framebuffer(game, pivot_coord,
 		&game->sprite_sheet.sprites[81]);
 	while (i < 4)
 	{
-		coord.x = ((game->ghosts[i].target_tile.x * 8) + X_POS) % 1920;
-		coord.y = ((game->ghosts[i].target_tile.y * 8) + Y_POS) % 1080;
+		coord.x = ((game->ghosts[i].target_tile.x * 8) + game->scheme.x_pos) % 1920;
+		coord.y = ((game->ghosts[i].target_tile.y * 8) + game->scheme.y_pos) % 1080;
 		render_sprite_into_framebuffer(game, coord, &target_tile);
 		target_tile.coord.x += 200;
 		i++;

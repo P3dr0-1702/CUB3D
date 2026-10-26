@@ -46,6 +46,24 @@ static void	key_case_move(t_game *g, int keycode, int value)
 		g->key.down = value;
 }
 
+static void update_scheme(t_game *g)
+{
+	if(g->key.scheme_change == 0)
+	{
+		g->scheme.scale_factor = 2;
+		g->scheme.x_pos = 672;
+		g->scheme.y_pos = 188;
+		g->player.player_radius = 0.18;
+	}
+	else
+	{
+		g->scheme.scale_factor = 1;
+		g->scheme.x_pos = 1344 * 2;
+		g->scheme.y_pos = 376 * 2;
+		g->player.player_radius = 0.5;
+	}
+}
+
 static void	key_case_toggle(t_game *g, int keycode, int value)
 {
 	if (keycode == 101 && (g->mode == MODE_CUBE
@@ -58,6 +76,9 @@ static void	key_case_toggle(t_game *g, int keycode, int value)
 		toggle_mouse_capture(g);
 	else if (keycode == 114 && value == 1)
 		g->key.show_raycast = !g->key.show_raycast;
+	else if (keycode == 111 && value == 1)
+		g->key.scheme_change = !g->key.scheme_change;
+	update_scheme(g);
 }
 
 int	handle_key_press(int keycode, t_game *g)

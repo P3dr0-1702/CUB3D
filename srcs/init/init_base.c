@@ -36,8 +36,8 @@ void	init_base(t_game *s)
 	if(s->is_pacman_map)
 	{
 		printf("Map height: %d, Map Width: %d \n", s->map.height, s->map.width);
-		s->base.width = (s->map.width * TILE_SIZE) + (4 * TILE_SIZE * SCALE_FACTOR);
-		s->base.height = (s->map.height * TILE_SIZE) + (4 * TILE_SIZE * SCALE_FACTOR);
+		s->base.width = (s->map.width * TILE_SIZE) + (4 * TILE_SIZE * s->scheme.scale_factor);
+		s->base.height = (s->map.height * TILE_SIZE) + (4 * TILE_SIZE * s->scheme.scale_factor);
 		printf("Base height: %d, Base Width: %d \n", s->base.height, s->base.width);
 	}
 	else
@@ -47,13 +47,13 @@ void	init_base(t_game *s)
 		s->base.height = (s->map.height) * TILE_SIZE;
 		printf("Base height: %d, Base Width: %d \n", s->base.height, s->base.width);
 	}
-	while(s->is_pacman_map && ++point.y < pacade.height * SCALE_FACTOR)
+	while(s->is_pacman_map && ++point.y < pacade.height * s->scheme.scale_factor)
 	{
 		// printf("point x before reset is %d\n", point.x);
 		point.x = -1;
-		while(++point.x < pacade.width * SCALE_FACTOR)
+		while(++point.x < pacade.width * s->scheme.scale_factor)
 		{
-			color = pixel_get(&pacade, point.x / SCALE_FACTOR, point.y / SCALE_FACTOR);
+			color = pixel_get(&pacade, point.x / s->scheme.scale_factor, point.y / s->scheme.scale_factor);
 			if((color << 24) != 0xFF)
 				ft_pixel_put(&s->base, point.x, point.y, color);
 		}
@@ -62,8 +62,8 @@ void	init_base(t_game *s)
 	point.y = -1;
 	if(s->is_pacman_map)
 	{
-		offset.x = (16 / TILE_SIZE) * SCALE_FACTOR;
-		offset.y = (16 / TILE_SIZE) * SCALE_FACTOR;
+		offset.x = (16 / TILE_SIZE) * s->scheme.scale_factor;
+		offset.y = (16 / TILE_SIZE) * s->scheme.scale_factor;
 	}
 	while (++point.y < s->map.height)
 	{
@@ -78,4 +78,6 @@ void	init_base(t_game *s)
 			// put_tile_inbase(s, tile, color, point);
 		}
 	}
+	// free_str(pacade.img_ptr);
+
 }
