@@ -418,4 +418,5 @@ void				change_pallete(t_point pallet_coord, t_anim *frames);
 void	render_frame(t_game *game);
 uint32_t	hash_file(const char *path);
 
+void update_scheme(t_game *g);
 #endif

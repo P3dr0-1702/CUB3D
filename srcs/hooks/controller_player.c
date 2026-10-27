@@ -42,8 +42,15 @@ static	void	face_button_handler(t_game *game, struct input_event event)
 		game->key.right = event.value;
 	else if (event.code == BTN_TR)
 		game->key.k = event.value;
-	else if (event.code == BTN_START)
-		game->key.controller_start = event.value;
+	else if(event.code == BTN_TL && event.value == 1)
+		game->key.scheme_change = !game->key.scheme_change;
+	else if(event.code == BTN_START && game->state == MENU)
+		start_game_mode(game, MODE_PACMAN);
+	else if(event.code == BTN_SELECT && game->state == MENU)
+		start_game_mode(game, MODE_FREE_ROAM);
+	else if(event.code == BTN_SELECT)
+		game->key.esc = event.value;
+	update_scheme(game);
 }
 
 void	controller_player(t_game *game)

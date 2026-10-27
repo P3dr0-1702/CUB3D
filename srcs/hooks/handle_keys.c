@@ -46,7 +46,7 @@ static void	key_case_move(t_game *g, int keycode, int value)
 		g->key.down = value;
 }
 
-static void update_scheme(t_game *g)
+void update_scheme(t_game *g)
 {
 	if(g->key.scheme_change == 0)
 	{
