@@ -2,3 +2,6 @@
 .vscode/
 minilibx-linux/
 compile_commands.json
+objs/
+cub3D
+libft/libft.a

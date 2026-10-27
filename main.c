@@ -70,6 +70,7 @@ void	reset_game(t_game *game, int is_death)
 	if (game->level > 255)
 		segfault_func(game);
 	game->player.collected_dots = 0;
+	game->key.scheme_change = 0;
 }
 
 int	gameloop(t_game *game)
